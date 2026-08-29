@@ -1,0 +1,2537 @@
+# Code Review Report
+**Generated:** 2026-08-29T14:09:31.546842
+**Files Reviewed:** 19
+**Total Issues:** 256
+
+## Summary by Severity
+- 🔴 **Critical:** 24
+- 🟠 **High:** 155
+- 🟡 **Medium:** 77
+
+## Summary by Category
+- **Bugs:** 122
+- **Complexity:** 4
+- **Security:** 130
+
+## Issues by File
+
+### src\ai\__init__.py
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\__init__.py:28:11
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+    return ProviderRegistry.get(provider_type, config)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\__init__.py:32:22
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+    provider_config = config.get("ai", {})
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\__init__.py:33:20
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+    provider_type = provider_config.get("provider", "auto")
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\__init__.py:38:56
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+                provider = await create_provider(ptype, provider_config.get(ptype, {}))
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\__init__.py:45:48
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+    return await create_provider(provider_type, provider_config.get(provider_type, {}))
+```
+
+**Suggestion:** Wrap in try/except block
+
+### src\ai\base.py
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\base.py:30:21
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.model = config.get("model", "unknown")
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\ai\base.py:54:87
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+issues_summary += f"- [{issue.severity.upper()}] {issue.title}: {issue.description} (Line {issue.location.line_start})\n"
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\ai\base.py:78:7
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+"description": "Detailed description",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\ai\base.py:78:31
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+"description": "Detailed description",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\ai\base.py:99:0
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+Description: {issue.description}
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\ai\base.py:99:20
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+Description: {issue.description}
+```
+
+#### 🟠 Mutable default argument (dict) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\ai\base.py:117:0
+**Description:** Found pattern matching: =\s*\{\s*\}
+
+**Suggestion:** Review and fix: Mutable default argument (dict)
+
+### src\ai\cloud_api.py
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\cloud_api.py:17:24
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.provider = config.get("provider", "openai")
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟠 Possible hardcoded API key [HIGH]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 70%
+**Location:** src\ai\cloud_api.py:18:0
+**Description:** Found pattern matching: api[_-]?key\s*=
+
+**Suggestion:** Review and fix: Possible hardcoded API key
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\cloud_api.py:18:23
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.api_key = config.get("api_key", "")
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\cloud_api.py:19:21
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.model = config.get("model", "gpt-4")
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\cloud_api.py:20:23
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.timeout = config.get("timeout", 60)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\cloud_api.py:21:27
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.temperature = config.get("temperature", 0.1)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\cloud_api.py:22:26
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.max_tokens = config.get("max_tokens", 4096)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\cloud_api.py:25:31
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.anthropic_model = config.get("anthropic_model", "claude-3-opus-20240229")
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\cloud_api.py:26:28
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.gemini_model = config.get("gemini_model", "gemini-pro")
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\ai\cloud_api.py:57:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\cloud_api.py:170:33
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+                response = await client.get(f"{self.base_url}/models")
+```
+
+**Suggestion:** Wrap in try/except block
+
+### src\ai\local_llm.py
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\local_llm.py:17:24
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.base_url = config.get("base_url", "http://localhost:11434")
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\local_llm.py:18:21
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.model = config.get("model", "codellama:7b")
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\local_llm.py:19:23
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.timeout = config.get("timeout", 120)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\local_llm.py:20:27
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.temperature = config.get("temperature", 0.1)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\local_llm.py:21:26
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.max_tokens = config.get("max_tokens", 4096)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\local_llm.py:48:15
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        return data.get("response", "")
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\local_llm.py:89:29
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+            response = await client.get(f"{self.base_url}/api/tags")
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\local_llm.py:92:45
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+                models = [m["name"] for m in data.get("models", [])]
+```
+
+**Suggestion:** Wrap in try/except block
+
+### src\ai\mock_api.py
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\mock_api.py:15:21
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.delay = config.get("delay", 0.1)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\mock_api.py:16:26
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.error_rate = config.get("error_rate", 0.0)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\mock_api.py:17:21
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.model = config.get("model", "mock-model")
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Insecure Random [MEDIUM]
+**Rule:** `insecure-random` | **Category:** security | **Confidence:** 60%
+**Location:** src\ai\mock_api.py:23:15
+**Description:** Use of non-cryptographic random for security
+
+**Code:**
+```
+return random.random() < self.error_rate
+```
+
+#### 🟡 High Cyclomatic Complexity [MEDIUM]
+**Rule:** `high-cyclomatic-complexity` | **Category:** complexity | **Confidence:** 100%
+**Location:** src\ai\mock_api.py:25:4
+**Description:** Function '_analyze_code_patterns' has cyclomatic complexity of 11
+
+**Code:**
+```
+    def _analyze_code_patterns(self, code: str, language: str) -> List[Dict[str, Any]]:
+```
+
+**Suggestion:** Consider breaking this function into smaller functions
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\ai\mock_api.py:26:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🔴 Eval Usage [CRITICAL]
+**Rule:** `eval-usage` | **Category:** security | **Confidence:** 95%
+**Location:** src\ai\mock_api.py:30:35
+**Description:** Use of eval() function
+
+**Code:**
+```
+(r'eval\s*\(', "Use of eval()", "critical", "security", 0.95),
+```
+
+#### 🔴 Use of eval() [CRITICAL]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 95%
+**Location:** src\ai\mock_api.py:30:0
+**Description:** Found pattern matching: eval\s*\(
+
+**Suggestion:** Review and fix: Use of eval()
+
+#### 🔴 Potential Command Injection [CRITICAL]
+**Rule:** `command-injection` | **Category:** security | **Confidence:** 60%
+**Location:** src\ai\mock_api.py:31:35
+**Description:** User input in shell command
+
+**Code:**
+```
+(r'exec\s*\(', "Use of exec()", "critical", "security", 0.95),
+```
+
+#### 🔴 Use of exec() [CRITICAL]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 95%
+**Location:** src\ai\mock_api.py:31:0
+**Description:** Found pattern matching: exec\s*\(
+
+**Suggestion:** Review and fix: Use of exec()
+
+#### 🟠 Unsafe pickle.loads [HIGH]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 90%
+**Location:** src\ai\mock_api.py:32:0
+**Description:** Found pattern matching: pickle\.loads
+
+**Suggestion:** Review and fix: Unsafe pickle.loads
+
+#### 🟡 Possible XSS [MEDIUM]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 40%
+**Location:** src\ai\mock_api.py:42:0
+**Description:** Found pattern matching: /.*\.js
+
+**Suggestion:** Review and fix: Possible XSS
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\ai\mock_api.py:51:25
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+"description": f"Found pattern matching: {pattern}",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\ai\mock_api.py:69:33
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+"description": f"Function '{node.name}' is empty",
+```
+
+#### 🔴 Eval Usage [CRITICAL]
+**Rule:** `eval-usage` | **Category:** security | **Confidence:** 95%
+**Location:** src\ai\mock_api.py:84:20
+**Description:** Use of eval() function
+
+**Code:**
+```
+"Use of eval()": ("# eval() removed - use safe alternative\nresult = safe_eval(user_input)", "Replaced eval() with safe alternative"),
+```
+
+#### 🔴 Eval Usage [CRITICAL]
+**Rule:** `eval-usage` | **Category:** security | **Confidence:** 95%
+**Location:** src\ai\mock_api.py:84:33
+**Description:** Use of eval() function
+
+**Code:**
+```
+"Use of eval()": ("# eval() removed - use safe alternative\nresult = safe_eval(user_input)", "Replaced eval() with safe alternative"),
+```
+
+#### 🔴 Eval Usage [CRITICAL]
+**Rule:** `eval-usage` | **Category:** security | **Confidence:** 95%
+**Location:** src\ai\mock_api.py:84:115
+**Description:** Use of eval() function
+
+**Code:**
+```
+"Use of eval()": ("# eval() removed - use safe alternative\nresult = safe_eval(user_input)", "Replaced eval() with safe alternative"),
+```
+
+#### 🔴 Use of eval() [CRITICAL]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 95%
+**Location:** src\ai\mock_api.py:84:0
+**Description:** Found pattern matching: eval\s*\(
+
+**Suggestion:** Review and fix: Use of eval()
+
+#### 🔴 Potential Command Injection [CRITICAL]
+**Rule:** `command-injection` | **Category:** security | **Confidence:** 60%
+**Location:** src\ai\mock_api.py:85:20
+**Description:** User input in shell command
+
+**Code:**
+```
+"Use of exec()": ("# exec() removed - use safe alternative\nresult = safe_exec(user_input)", "Replaced exec() with safe alternative"),
+```
+
+#### 🔴 Potential Command Injection [CRITICAL]
+**Rule:** `command-injection` | **Category:** security | **Confidence:** 60%
+**Location:** src\ai\mock_api.py:85:33
+**Description:** User input in shell command
+
+**Code:**
+```
+"Use of exec()": ("# exec() removed - use safe alternative\nresult = safe_exec(user_input)", "Replaced exec() with safe alternative"),
+```
+
+#### 🔴 Potential Command Injection [CRITICAL]
+**Rule:** `command-injection` | **Category:** security | **Confidence:** 60%
+**Location:** src\ai\mock_api.py:85:86
+**Description:** User input in shell command
+
+**Code:**
+```
+"Use of exec()": ("# exec() removed - use safe alternative\nresult = safe_exec(user_input)", "Replaced exec() with safe alternative"),
+```
+
+#### 🔴 Potential Command Injection [CRITICAL]
+**Rule:** `command-injection` | **Category:** security | **Confidence:** 60%
+**Location:** src\ai\mock_api.py:85:115
+**Description:** User input in shell command
+
+**Code:**
+```
+"Use of exec()": ("# exec() removed - use safe alternative\nresult = safe_exec(user_input)", "Replaced exec() with safe alternative"),
+```
+
+#### 🔴 Use of exec() [CRITICAL]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 95%
+**Location:** src\ai\mock_api.py:85:0
+**Description:** Found pattern matching: exec\s*\(
+
+**Suggestion:** Review and fix: Use of exec()
+
+#### 🟠 Unsafe pickle.loads [HIGH]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 90%
+**Location:** src\ai\mock_api.py:86:0
+**Description:** Found pattern matching: pickle\.loads
+
+**Suggestion:** Review and fix: Unsafe pickle.loads
+
+#### 🟠 Possible hardcoded password [HIGH]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 70%
+**Location:** src\ai\mock_api.py:87:0
+**Description:** Found pattern matching: password\s*=
+
+**Suggestion:** Review and fix: Possible hardcoded password
+
+#### 🟠 Possible hardcoded API key [HIGH]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 70%
+**Location:** src\ai\mock_api.py:88:0
+**Description:** Found pattern matching: api[_-]?key\s*=
+
+**Suggestion:** Review and fix: Possible hardcoded API key
+
+#### 🟠 Possible hardcoded secret [HIGH]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 70%
+**Location:** src\ai\mock_api.py:89:0
+**Description:** Found pattern matching: secret\s*=
+
+**Suggestion:** Review and fix: Possible hardcoded secret
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\ai\mock_api.py:91:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Mutable default argument (dict) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\ai\mock_api.py:92:0
+**Description:** Found pattern matching: =\s*\{\s*\}
+
+**Suggestion:** Review and fix: Mutable default argument (dict)
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\ai\mock_api.py:96:34
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        fixed_code, explanation = fixes.get(issue.title, (code, "No automatic fix available"))
+```
+
+**Suggestion:** Wrap in try/except block
+
+### src\analyzer\ast_parser.py
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:35:4
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description: str
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:49:13
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+"description": self.description,
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:49:32
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+"description": self.description,
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:101:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:109:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=str(e),
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:119:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟡 High Cyclomatic Complexity [MEDIUM]
+**Rule:** `high-cyclomatic-complexity` | **Category:** complexity | **Confidence:** 100%
+**Location:** src\analyzer\ast_parser.py:136:4
+**Description:** Function '_check_function' has cyclomatic complexity of 13
+
+**Code:**
+```
+    def _check_function(self, node: ast.FunctionDef, lines: List[str], file_path: str) -> List[Issue]:
+```
+
+**Suggestion:** Consider breaking this function into smaller functions
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:137:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:143:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Function '{node.name}' is empty (only contains pass)",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:158:24
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Function '{node.name}' uses a mutable default argument",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:173:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Function '{node.name}' has cyclomatic complexity of {complexity}",
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:186:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:193:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Class '{node.name}' has {method_count} methods",
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:206:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:214:20
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Use of '{func_name}' can execute arbitrary code",
+```
+
+#### 🟠 Unsafe pickle.loads [HIGH]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 90%
+**Location:** src\analyzer\ast_parser.py:223:0
+**Description:** Found pattern matching: pickle\.loads
+
+**Suggestion:** Review and fix: Unsafe pickle.loads
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:227:20
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="pickle.loads can execute arbitrary code during deserialization",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:227:80
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="pickle.loads can execute arbitrary code during deserialization",
+```
+
+#### 🟠 Unsafe pickle.loads [HIGH]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 90%
+**Location:** src\analyzer\ast_parser.py:227:0
+**Description:** Found pattern matching: pickle\.loads
+
+**Suggestion:** Review and fix: Unsafe pickle.loads
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:240:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🔴 Potential Command Injection [CRITICAL]
+**Rule:** `command-injection` | **Category:** security | **Confidence:** 60%
+**Location:** src\analyzer\ast_parser.py:242:44
+**Description:** User input in shell command
+
+**Code:**
+```
+if alias.name in ("os", "sys", "subprocess", "pickle", "marshal"):
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:246:20
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Importing '{alias.name}' can be risky if not used carefully",
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:258:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:263:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Importing pickle.loads can lead to arbitrary code execution",
+```
+
+#### 🟠 Unsafe pickle.loads [HIGH]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 90%
+**Location:** src\analyzer\ast_parser.py:263:0
+**Description:** Found pattern matching: pickle\.loads
+
+**Suggestion:** Review and fix: Unsafe pickle.loads
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:289:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:295:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:311:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:322:20
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Function '{func_name}' has {param_count} parameters",
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:335:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:347:20
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Use of '{func_name}' can execute arbitrary code",
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:359:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\ast_parser.py:369:20
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Constant '{var_name}' may contain a hardcoded secret",
+```
+
+### src\analyzer\bug_detector.py
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:16:4
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description: str
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:26:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:34:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Variable used without null check",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:43:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Loop boundary condition may be incorrect",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:52:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Loop condition may never become false",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:61:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="File/connection not properly closed",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:70:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Non-atomic operation on shared resource",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:79:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Division without zero check",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:88:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Array/list access without bounds check",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:97:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Code that can raise exception without try/except",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:106:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Async function called without await",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:115:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Inner variable shadows outer variable",
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:124:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:136:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:155:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:161:20
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Division by variable '{node.right.id}' without zero check",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:174:20
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Division by zero constant",
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:186:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:194:24
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Negative index {index} used for array access",
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:206:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:218:24
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="File opened without using 'with' statement",
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:230:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Unsafe pickle.loads [HIGH]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 90%
+**Location:** src\analyzer\bug_detector.py:232:0
+**Description:** Found pattern matching: pickle\.loads
+
+**Suggestion:** Review and fix: Unsafe pickle.loads
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:249:24
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Call to '{func_name}' can raise exception",
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:261:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:275:24
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Async function '{node.func.id}' called without await",
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:287:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:296:28
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Variable '{n.id}' shadows outer scope variable",
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:309:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:326:24
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Potential issue: {title.lower()}",
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:338:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:346:20
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="While true loop without apparent break condition",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\bug_detector.py:360:20
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="For loop with no initialization, condition, or increment",
+```
+
+### src\analyzer\static_rules.py
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:15:4
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description: str
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:27:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:34:20
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=self.description,
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:34:37
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=self.description,
+```
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\analyzer\static_rules.py:43:31
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+                    confidence=self.metadata.get("confidence", 0.7),
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:50:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:58:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Possible hardcoded password or secret",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:68:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="String formatting in SQL query",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:78:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="User input in shell command",
+```
+
+#### 🔴 Potential Command Injection [CRITICAL]
+**Rule:** `command-injection` | **Category:** security | **Confidence:** 60%
+**Location:** src\analyzer\static_rules.py:81:38
+**Description:** User input in shell command
+
+**Code:**
+```
+pattern=re.compile(r'(subprocess|os\.system|shell=True|exec\(|spawn\()', re.IGNORECASE),
+```
+
+#### 🔴 Potential Command Injection [CRITICAL]
+**Rule:** `command-injection` | **Category:** security | **Confidence:** 60%
+**Location:** src\analyzer\static_rules.py:81:60
+**Description:** User input in shell command
+
+**Code:**
+```
+pattern=re.compile(r'(subprocess|os\.system|shell=True|exec\(|spawn\()', re.IGNORECASE),
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:88:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="User input in file path without validation",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:98:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Direct user input in HTML output",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:108:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Debug statements in production code",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:118:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="TODO/FIXME comment found",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:128:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Line exceeds recommended length",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:138:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Bare except catches all exceptions",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:148:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Mutable default argument in function definition",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:158:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Variable assigned but never used",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:168:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Global variable declaration",
+```
+
+#### 🔴 Eval Usage [CRITICAL]
+**Rule:** `eval-usage` | **Category:** security | **Confidence:** 95%
+**Location:** src\analyzer\static_rules.py:178:36
+**Description:** Use of eval() function
+
+**Code:**
+```
+description="Use of eval() function",
+```
+
+#### 🔴 Use of eval() [CRITICAL]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 95%
+**Location:** src\analyzer\static_rules.py:178:0
+**Description:** Found pattern matching: eval\s*\(
+
+**Suggestion:** Review and fix: Use of eval()
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:178:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Use of eval() function",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:188:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Use of non-cryptographic random for security",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:198:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Use of weak cryptographic algorithms",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:201:38
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+pattern=re.compile(r'(md5|sha1|des|rc4|ecb)', re.IGNORECASE),
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:201:42
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+pattern=re.compile(r'(md5|sha1|des|rc4|ecb)', re.IGNORECASE),
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:201:47
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+pattern=re.compile(r'(md5|sha1|des|rc4|ecb)', re.IGNORECASE),
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:201:51
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+pattern=re.compile(r'(md5|sha1|des|rc4|ecb)', re.IGNORECASE),
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:201:55
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+pattern=re.compile(r'(md5|sha1|des|rc4|ecb)', re.IGNORECASE),
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:208:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description="Hardcoded IP address in code",
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\analyzer\static_rules.py:231:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+### src\cli.py
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\cli.py:85:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\cli.py:86:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\cli.py:90:30
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+TextColumn("[progress.description]{task.description}"),
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\cli.py:90:48
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+TextColumn("[progress.description]{task.description}"),
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\cli.py:98:34
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+progress.update(task, description=f"Reviewing {file_path.name}...")
+```
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\cli.py:110:16
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+    threshold = severity_order.get(config.analysis.severity_threshold, 2)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\cli.py:111:48
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+    filtered_issues = [i for i in all_issues if severity_order.get(i.severity, 3) <= threshold]
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\cli.py:141:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\cli.py:166:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\cli.py:168:15
+**Description:** Call to 'loads' can raise exception
+
+**Code:**
+```
+        data = json.loads(response.content)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\cli.py:169:24
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        for ai_issue in data.get("issues", []):
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\cli.py:171:37
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+                id=f"ai-{file_path}-{ai_issue.get('line_start', 0)}",
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\cli.py:172:22
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+                title=ai_issue.get("title", "AI Detected Issue"),
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\cli.py:173:16
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=ai_issue.get("description", ""),
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\cli.py:173:42
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=ai_issue.get("description", ""),
+```
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\cli.py:173:28
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+                description=ai_issue.get("description", ""),
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\cli.py:174:25
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+                severity=ai_issue.get("severity", "medium"),
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\cli.py:175:25
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+                category=ai_issue.get("category", "best_practices"),
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\cli.py:178:20
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+                    ai_issue.get("line_start", 1),
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\cli.py:179:20
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+                    ai_issue.get("line_end", 1),
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\cli.py:183:27
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+                suggestion=ai_issue.get("suggestion", ""),
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\cli.py:184:27
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+                confidence=ai_issue.get("confidence", 0.7),
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\cli.py:185:30
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+                rule_id=f"ai-{ai_issue.get('category', 'unknown')}",
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟠 Mutable default argument (dict) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\cli.py:201:0
+**Description:** Found pattern matching: =\s*\{\s*\}
+
+**Suggestion:** Review and fix: Mutable default argument (dict)
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\cli.py:205:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\cli.py:217:41
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+console.print(f"  - {fix.description} (confidence: {fix.confidence:.0%})")
+```
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\cli.py:242:16
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        count = summary.by_severity.get(severity, 0)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟠 Mutable Default Argument [HIGH]
+**Rule:** `mutable-default` | **Category:** bugs | **Confidence:** 90%
+**Location:** src\cli.py:309:0
+**Description:** Mutable default argument in function definition
+
+**Code:**
+```
+def bad_function(items=[]):
+```
+
+#### 🔴 Eval Usage [CRITICAL]
+**Rule:** `eval-usage` | **Category:** security | **Confidence:** 95%
+**Location:** src\cli.py:310:4
+**Description:** Use of eval() function
+
+**Code:**
+```
+eval("print('hello')")
+```
+
+#### 🟠 Hardcoded Password [HIGH]
+**Rule:** `hardcoded-password` | **Category:** security | **Confidence:** 70%
+**Location:** src\cli.py:311:4
+**Description:** Possible hardcoded password or secret
+
+**Code:**
+```
+password = "secret123"
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\cli.py:336:73
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+console.print(f"  - [{issue.severity}] {issue.title}: {issue.description}")
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\cli.py:351:22
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+table.add_column("Description", style="white")
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\cli.py:361:14
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+for name, desc in providers:
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\cli.py:362:28
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+table.add_row(name, desc)
+```
+
+### src\config.py
+
+#### 🟡 Possible XSS [MEDIUM]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 40%
+**Location:** src\config.py:61:0
+**Description:** Found pattern matching: /.*\.js
+
+**Suggestion:** Review and fix: Possible XSS
+
+#### 🟡 Possible XSS [MEDIUM]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 40%
+**Location:** src\config.py:66:0
+**Description:** Found pattern matching: /.*\.js
+
+**Suggestion:** Review and fix: Possible XSS
+
+#### 🟡 High Cyclomatic Complexity [MEDIUM]
+**Rule:** `high-cyclomatic-complexity` | **Category:** complexity | **Confidence:** 100%
+**Location:** src\config.py:123:0
+**Description:** Function 'load_config' has cyclomatic complexity of 11
+
+**Code:**
+```
+def load_config(config_path: Optional[str] = None) -> Config:
+```
+
+**Suggestion:** Consider breaking this function into smaller functions
+
+#### 🟡 Potential Resource Leak [MEDIUM]
+**Rule:** `resource-leak` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\config.py:134:13
+**Description:** File opened without using 'with' statement
+
+**Code:**
+```
+        with open(path, "r") as f:
+```
+
+**Suggestion:** Use 'with open(...) as f:' to ensure proper closing
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\config.py:134:13
+**Description:** Call to 'open' can raise exception
+
+**Code:**
+```
+        with open(path, "r") as f:
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟠 Possible hardcoded API key [HIGH]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 70%
+**Location:** src\config.py:141:0
+**Description:** Found pattern matching: api[_-]?key\s*=
+
+**Suggestion:** Review and fix: Possible hardcoded API key
+
+#### 🟠 Possible hardcoded API key [HIGH]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 70%
+**Location:** src\config.py:143:0
+**Description:** Found pattern matching: api[_-]?key\s*=
+
+**Suggestion:** Review and fix: Possible hardcoded API key
+
+#### 🟠 Possible hardcoded API key [HIGH]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 70%
+**Location:** src\config.py:145:0
+**Description:** Found pattern matching: api[_-]?key\s*=
+
+**Suggestion:** Review and fix: Possible hardcoded API key
+
+#### 🟡 Potential Resource Leak [MEDIUM]
+**Rule:** `resource-leak` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\config.py:157:9
+**Description:** File opened without using 'with' statement
+
+**Code:**
+```
+    with open(path, "w") as f:
+```
+
+**Suggestion:** Use 'with open(...) as f:' to ensure proper closing
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\config.py:157:9
+**Description:** Call to 'open' can raise exception
+
+**Code:**
+```
+    with open(path, "w") as f:
+```
+
+**Suggestion:** Wrap in try/except block
+
+### src\fixer\auto_fixer.py
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\fixer\auto_fixer.py:18:4
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description: str
+```
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\fixer\auto_fixer.py:27:25
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.safe_only = config.get("safe_only", True)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\fixer\auto_fixer.py:28:36
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.confidence_threshold = config.get("confidence_threshold", 0.85)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\fixer\auto_fixer.py:29:29
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.create_backup = config.get("create_backup", True)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\fixer\auto_fixer.py:30:39
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.auto_fix_categories = set(config.get("auto_fix_categories", ["style", "simple_bug", "unused_import"]))
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\fixer\auto_fixer.py:51:16
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        fixer = fixers.get(issue.rule_id)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\fixer\auto_fixer.py:60:24
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Auto-fix for {issue.title}",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\fixer\auto_fixer.py:68:20
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+description=f"Fix failed: {str(e)}",
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\fixer\auto_fixer.py:86:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟡 Bare Except Clause [MEDIUM]
+**Rule:** `bare-except` | **Category:** bugs | **Confidence:** 85%
+**Location:** src\fixer\auto_fixer.py:119:44
+**Description:** Bare except catches all exceptions
+
+**Code:**
+```
+lines[line_idx] = line.replace("except:", "except Exception:")
+```
+
+#### 🟡 Bare except clause [MEDIUM]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 85%
+**Location:** src\fixer\auto_fixer.py:119:0
+**Description:** Found pattern matching: except\s*:
+
+**Suggestion:** Review and fix: Bare except clause
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\fixer\auto_fixer.py:200:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\fixer\auto_fixer.py:201:17
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+"description": "Replace mutable default with None pattern",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\fixer\auto_fixer.py:206:17
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+"description": "Specify exception type",
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\fixer\auto_fixer.py:211:17
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+"description": "Move secret to environment variable",
+```
+
+#### 🔴 Potential SQL Injection [CRITICAL]
+**Rule:** `sql-injection` | **Category:** security | **Confidence:** 80%
+**Location:** src\fixer\auto_fixer.py:215:39
+**Description:** String formatting in SQL query
+
+**Code:**
+```
+"replacement": 'cursor.execute("\\1%\\2", (param,))',
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\fixer\auto_fixer.py:216:17
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+"description": "Use parameterized queries",
+```
+
+#### 🔴 Potential Command Injection [CRITICAL]
+**Rule:** `command-injection` | **Category:** security | **Confidence:** 60%
+**Location:** src\fixer\auto_fixer.py:219:29
+**Description:** User input in shell command
+
+**Code:**
+```
+"pattern": r'subprocess\.(run|call|Popen)\s*\(\s*["\']([^"\']+)["\']',
+```
+
+#### 🔴 Potential Command Injection [CRITICAL]
+**Rule:** `command-injection` | **Category:** security | **Confidence:** 60%
+**Location:** src\fixer\auto_fixer.py:220:33
+**Description:** User input in shell command
+
+**Code:**
+```
+"replacement": r'subprocess.\1(["\2".split()])',
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\fixer\auto_fixer.py:221:17
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+"description": "Use list form instead of shell string",
+```
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\fixer\auto_fixer.py:226:19
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        template = self.fix_templates.get(issue.rule_id)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\fixer\auto_fixer.py:243:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🔴 Potential Command Injection [CRITICAL]
+**Rule:** `command-injection` | **Category:** security | **Confidence:** 60%
+**Location:** src\fixer\auto_fixer.py:260:23
+**Description:** User input in shell command
+
+**Code:**
+```
+"Avoid shell=True in subprocess",
+```
+
+#### 🔴 Potential Command Injection [CRITICAL]
+**Rule:** `command-injection` | **Category:** security | **Confidence:** 60%
+**Location:** src\fixer\auto_fixer.py:260:37
+**Description:** User input in shell command
+
+**Code:**
+```
+"Avoid shell=True in subprocess",
+```
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\fixer\auto_fixer.py:291:15
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        return suggestions.get(issue.rule_id, ["Review and fix manually"])
+```
+
+**Suggestion:** Wrap in try/except block
+
+### src\reporter\formatter.py
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\reporter\formatter.py:27:29
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.output_format = config.get("format", "markdown")
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\reporter\formatter.py:28:32
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.output_path = Path(config.get("path", "./reviews"))
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\reporter\formatter.py:29:35
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.include_suggestions = config.get("include_suggestions", True)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\reporter\formatter.py:30:37
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.include_code_snippets = config.get("include_code_snippets", True)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\reporter\formatter.py:31:36
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.include_line_numbers = config.get("include_line_numbers", True)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\reporter\formatter.py:32:24
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        self.group_by = config.get("group_by", "file")
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟠 Potential Division by Zero [HIGH]
+**Rule:** `division-by-zero` | **Category:** bugs | **Confidence:** 70%
+**Location:** src\reporter\formatter.py:54:22
+**Description:** Division by variable 'file_name' without zero check
+
+**Code:**
+```
+        output_file = self.output_path / file_name
+```
+
+**Suggestion:** Add check: if file_name != 0:
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\reporter\formatter.py:73:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\reporter\formatter.py:83:20
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+            count = summary.by_severity.get(severity, 0)
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟠 Mutable default argument (dict) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\reporter\formatter.py:106:0
+**Description:** Found pattern matching: =\s*\{\s*\}
+
+**Suggestion:** Review and fix: Mutable default argument (dict)
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\reporter\formatter.py:110:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Mutable default argument (dict) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\reporter\formatter.py:144:0
+**Description:** Found pattern matching: =\s*\{\s*\}
+
+**Suggestion:** Review and fix: Mutable default argument (dict)
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\reporter\formatter.py:147:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\reporter\formatter.py:161:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\reporter\formatter.py:164:16
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+        emoji = severity_emoji.get(issue.severity, "⚪")
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\reporter\formatter.py:169:25
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+lines.append(f"**Description:** {issue.description}")
+```
+
+#### 🟠 Weak Cryptography [HIGH]
+**Rule:** `weak-crypto` | **Category:** security | **Confidence:** 80%
+**Location:** src\reporter\formatter.py:169:47
+**Description:** Use of weak cryptographic algorithms
+
+**Code:**
+```
+lines.append(f"**Description:** {issue.description}")
+```
+
+#### 🟠 Mutable default argument (dict) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\reporter\formatter.py:199:0
+**Description:** Found pattern matching: =\s*\{\s*\}
+
+**Suggestion:** Review and fix: Mutable default argument (dict)
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\reporter\formatter.py:212:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\reporter\formatter.py:227:50
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+            summary.by_severity[issue.severity] = summary.by_severity.get(issue.severity, 0) + 1
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\reporter\formatter.py:228:50
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+            summary.by_category[issue.category] = summary.by_category.get(issue.category, 0) + 1
+```
+
+**Suggestion:** Wrap in try/except block
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\reporter\formatter.py:229:56
+**Description:** Call to 'get' can raise exception
+
+**Code:**
+```
+            summary.by_file[issue.location.file_path] = summary.by_file.get(issue.location.file_path, 0) + 1
+```
+
+**Suggestion:** Wrap in try/except block
+
+### src\utils\file_handler.py
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\utils\file_handler.py:30:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🟠 Potential Division by Zero [HIGH]
+**Rule:** `division-by-zero` | **Category:** bugs | **Confidence:** 70%
+**Location:** src\utils\file_handler.py:40:62
+**Description:** Division by variable 'd' without zero check
+
+**Code:**
+```
+        dirs[:] = [d for d in dirs if not _should_exclude_dir(root_path / d, exclude_patterns)]
+```
+
+**Suggestion:** Add check: if d != 0:
+
+#### 🟠 Potential Division by Zero [HIGH]
+**Rule:** `division-by-zero` | **Category:** bugs | **Confidence:** 70%
+**Location:** src\utils\file_handler.py:43:24
+**Description:** Division by variable 'filename' without zero check
+
+**Code:**
+```
+            file_path = root_path / filename
+```
+
+**Suggestion:** Add check: if filename != 0:
+
+#### 🟡 High Cyclomatic Complexity [MEDIUM]
+**Rule:** `high-cyclomatic-complexity` | **Category:** complexity | **Confidence:** 100%
+**Location:** src\utils\file_handler.py:50:0
+**Description:** Function '_should_include' has cyclomatic complexity of 11
+
+**Code:**
+```
+def _should_include(
+```
+
+**Suggestion:** Consider breaking this function into smaller functions
+
+#### 🟡 Potential Resource Leak [MEDIUM]
+**Rule:** `resource-leak` | **Category:** bugs | **Confidence:** 80%
+**Location:** src\utils\file_handler.py:98:13
+**Description:** File opened without using 'with' statement
+
+**Code:**
+```
+        with open(file_path, "rb") as f:
+```
+
+**Suggestion:** Use 'with open(...) as f:' to ensure proper closing
+
+#### 🟡 Unhandled Exception Risk [MEDIUM]
+**Rule:** `unhandled-exception` | **Category:** bugs | **Confidence:** 60%
+**Location:** src\utils\file_handler.py:98:13
+**Description:** Call to 'open' can raise exception
+
+**Code:**
+```
+        with open(file_path, "rb") as f:
+```
+
+**Suggestion:** Wrap in try/except block

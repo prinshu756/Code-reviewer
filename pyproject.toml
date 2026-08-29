@@ -57,7 +57,7 @@ cloud = [
 ]
 
 [project.scripts]
-code-reviewer = "src.cli:main"
+code-reviewer = "cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

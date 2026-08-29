@@ -1,2 +1,2 @@
 [console_scripts]
-code-reviewer = src.cli:main
+code-reviewer = cli:main
