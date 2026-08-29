@@ -23,7 +23,7 @@ from analyzer import (
     CodeLocation,
 )
 from ai import create_provider, get_available_provider, AIProvider, ReviewContext
-from fixer import auto_fixer, fix_suggester
+from fixer import AutoFixer, auto_fixer, fix_suggester
 from reporter import create_formatter, create_summary
 from utils import find_files, setup_logger, ProgressLogger
 
@@ -190,7 +190,8 @@ def _parse_ai_response(response, file_path: Path, language: LanguageType) -> Lis
 
 
 async def _run_fixes(issues: List[Issue], files: List[Path], config: Config, dry_run: bool) -> None:
-    fixable_issues = [i for i in issues if auto_fixer.can_fix(i)]
+    fixer = AutoFixer(config.fixer.model_dump())
+    fixable_issues = [i for i in issues if fixer.can_fix(i)]
     
     if not fixable_issues:
         console.print("[yellow]No auto-fixable issues found[/yellow]")
@@ -205,7 +206,7 @@ async def _run_fixes(issues: List[Issue], files: List[Path], config: Config, dry
             file_fixes[file_path] = []
         
         code = file_path.read_text(encoding="utf-8")
-        fix = auto_fixer.generate_fix(issue, code, file_path)
+        fix = fixer.generate_fix(issue, code, file_path)
         if fix:
             file_fixes[file_path].append(fix)
     
@@ -221,7 +222,7 @@ async def _run_fixes(issues: List[Issue], files: List[Path], config: Config, dry
     total_failed = 0
     
     for file_path, fixes in file_fixes.items():
-        applied, failed = auto_fixer.apply_fixes(fixes, file_path)
+        applied, failed = fixer.apply_fixes(fixes, file_path)
         total_applied += applied
         total_failed += failed
     

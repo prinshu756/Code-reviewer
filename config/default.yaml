@@ -35,6 +35,8 @@ analysis:
     - "python"
     - "javascript"
     - "typescript"
+    - "cpp"
+    - "c"
   
   # Minimum severity to report: low, medium, high, critical
   severity_threshold: "medium"
@@ -63,6 +65,14 @@ analysis:
     - "**/*.ts"
     - "**/*.jsx"
     - "**/*.tsx"
+    - "**/*.cpp"
+    - "**/*.cc"
+    - "**/*.cxx"
+    - "**/*.c++"
+    - "**/*.c"
+    - "**/*.h"
+    - "**/*.hpp"
+    - "**/*.hxx"
   exclude_patterns:
     - "**/__pycache__/**"
     - "**/node_modules/**"
@@ -100,10 +110,11 @@ fixer:
   create_backup: true
   
   # Fix categories to apply automatically
+  # Note: "style" includes debug-code which can conflict with other fixes
   auto_fix_categories:
-    - "style"
     - "simple_bug"
     - "unused_import"
+    - "syntax"
 
 logging:
   level: "INFO"  # DEBUG, INFO, WARNING, ERROR

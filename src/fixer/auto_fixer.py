@@ -46,6 +46,10 @@ class AutoFixer:
             "debug-code": self._fix_debug_code,
             "trailing-whitespace": self._fix_trailing_whitespace,
             "missing-docstring": self._fix_missing_docstring,
+            "syntax-error": self._fix_syntax_error,
+            "missing-semicolon": self._fix_missing_semicolon,
+            "missing-brace": self._fix_missing_brace,
+            "unclosed-string": self._fix_unclosed_string,
         }
         
         fixer = fixers.get(issue.rule_id)
@@ -140,7 +144,15 @@ class AutoFixer:
         line_idx = issue.location.line_start - 1
         
         if line_idx < len(lines):
-            lines.pop(line_idx)
+            line = lines[line_idx]
+            # Only comment out if it's at module level (not indented)
+            # or if it's a clear debug print
+            if not line.lstrip().startswith('#'):
+                indent = len(line) - len(line.lstrip())
+                if indent == 0 or 'debug' in line.lower() or 'todo' in line.lower():
+                    # Comment it out instead of removing
+                    lines[line_idx] = '# ' + line.lstrip()
+                # else: leave it alone - it's likely intentional code
         
         return "\n".join(lines)
     
@@ -177,6 +189,89 @@ class AutoFixer:
         except Exception as e:
             fix.error = str(e)
             return False
+    
+    def _fix_syntax_error(self, code: str, issue: Issue, file_path: Path) -> str:
+        if file_path.suffix != '.py':
+            return code
+        
+        lines = code.splitlines()
+        line_idx = issue.location.line_start - 1
+        
+        if line_idx >= len(lines):
+            return code
+        
+        line = lines[line_idx]
+        
+        if "expected ':'" in issue.description:
+            # Handle function definitions: def func() -> add : after )
+            if 'def ' in line and '(' in line and ')' in line:
+                # Find the first ) after def (
+                def_idx = line.find('def ')
+                if def_idx != -1:
+                    paren_idx = line.find(')', def_idx)
+                    if paren_idx != -1 and not line[paren_idx:].lstrip().startswith(':'):
+                        lines[line_idx] = line[:paren_idx+1] + ':' + line[paren_idx+1:]
+            elif 'if ' in line or 'elif ' in line or 'else' in line or 'for ' in line or 'while ' in line or 'try:' in line or 'except' in line or 'with ' in line or 'class ' in line:
+                if not line.rstrip().endswith(':'):
+                    lines[line_idx] = line.rstrip() + ':'
+        
+        elif "expected '('" in issue.description:
+            if 'def ' in line and '(' not in line:
+                lines[line_idx] = line.replace('def ', 'def ()')
+        
+        elif "expected ')'" in issue.description:
+            if line.count('(') > line.count(')'):
+                lines[line_idx] = line + ')'
+        
+        elif "unterminated string" in issue.description.lower():
+            if line.count('"') % 2 == 1:
+                lines[line_idx] = line + '"'
+            elif line.count("'") % 2 == 1:
+                lines[line_idx] = line + "'"
+        
+        elif "unexpected indent" in issue.description.lower():
+            lines[line_idx] = line.lstrip()
+        
+        return "\n".join(lines)
+    
+    def _fix_missing_semicolon(self, code: str, issue: Issue, file_path: Path) -> str:
+        lines = code.splitlines()
+        line_idx = issue.location.line_start - 1
+        
+        if line_idx < len(lines):
+            line = lines[line_idx].rstrip()
+            if line and not line.endswith((';', '{', '}', ':', ')', ']')) and not line.strip().startswith('#'):
+                if file_path.suffix in ('.py',):
+                    pass
+                else:
+                    lines[line_idx] = line + ';'
+        
+        return "\n".join(lines)
+    
+    def _fix_missing_brace(self, code: str, issue: Issue, file_path: Path) -> str:
+        lines = code.splitlines()
+        line_idx = issue.location.line_start - 1
+        
+        if line_idx < len(lines):
+            open_braces = code.count('{')
+            close_braces = code.count('}')
+            if open_braces > close_braces:
+                lines.append('}')
+        
+        return "\n".join(lines)
+    
+    def _fix_unclosed_string(self, code: str, issue: Issue, file_path: Path) -> str:
+        lines = code.splitlines()
+        line_idx = issue.location.line_start - 1
+        
+        if line_idx < len(lines):
+            line = lines[line_idx]
+            if line.count('"') % 2 == 1:
+                lines[line_idx] = line + '"'
+            elif line.count("'") % 2 == 1:
+                lines[line_idx] = line + "'"
+        
+        return "\n".join(lines)
     
     def apply_fixes(self, fixes: List[Fix], file_path: Path) -> Tuple[int, int]:
         applied = 0

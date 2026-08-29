@@ -1,0 +1,64 @@
+# Code Review Report
+**Generated:** 2026-08-29T16:49:37.219922
+**Files Reviewed:** 3
+**Total Issues:** 4
+
+## Summary by Severity
+- 🟠 **High:** 4
+
+## Summary by Category
+- **Security:** 4
+
+## Issues by File
+
+### test_cpp\test.cpp
+
+#### 🟠 Format String Vulnerability [HIGH]
+**Rule:** `format-string` | **Category:** security | **Confidence:** 70%
+**Location:** test_cpp\test.cpp:1:0
+**Description:** Use of printf/scanf without format string
+
+**Code:**
+```
+int main() { printf("hello"); return 0 }
+```
+
+**Suggestion:** Use format string literals: printf("%s", user_input)
+
+### test_cpp\test2.cpp
+
+#### 🟠 Unsafe String Function [HIGH]
+**Rule:** `unsafe-strcpy` | **Category:** security | **Confidence:** 80%
+**Location:** test_cpp\test2.cpp:7:0
+**Description:** strcpy/strcat can cause buffer overflow
+
+**Code:**
+```
+strcpy(buffer, input);  // Buffer overflow risk
+```
+
+**Suggestion:** Use strncpy/strncat or snprintf instead
+
+#### 🟠 Format String Vulnerability [HIGH]
+**Rule:** `format-string` | **Category:** security | **Confidence:** 70%
+**Location:** test_cpp\test2.cpp:8:0
+**Description:** Use of printf/scanf without format string
+
+**Code:**
+```
+printf(input);  // Format string vulnerability
+```
+
+**Suggestion:** Use format string literals: printf("%s", user_input)
+
+#### 🟠 Unsafe String Function [HIGH]
+**Rule:** `unsafe-strcpy` | **Category:** security | **Confidence:** 80%
+**Location:** test_cpp\test2.cpp:13:0
+**Description:** strcpy/strcat can cause buffer overflow
+
+**Code:**
+```
+strcpy(ptr, "hello");
+```
+
+**Suggestion:** Use strncpy/strncat or snprintf instead

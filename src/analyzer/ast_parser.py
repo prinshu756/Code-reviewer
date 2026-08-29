@@ -14,6 +14,8 @@ class LanguageType(Enum):
     PYTHON = "python"
     JAVASCRIPT = "javascript"
     TYPESCRIPT = "typescript"
+    CPP = "cpp"
+    C = "c"
 
 
 @dataclass
@@ -390,6 +392,139 @@ class TypeScriptAnalyzer(JavaScriptAnalyzer):
             pass
 
 
+class CppAnalyzer(BaseAnalyzer):
+    def __init__(self):
+        super().__init__(LanguageType.CPP)
+    
+    def analyze(self, code: str, file_path: str) -> List[Issue]:
+        issues = []
+        lines = code.splitlines()
+        
+        for i, line in enumerate(lines):
+            line_num = i + 1
+            issues.extend(self._check_line(line, line_num, file_path, lines, i))
+        
+        return issues
+    
+    def _check_line(self, line: str, line_num: int, file_path: str, all_lines: List[str], line_idx: int) -> List[Issue]:
+        issues = []
+        stripped = line.strip()
+        
+        if stripped.startswith("// TODO") or stripped.startswith("// FIXME"):
+            issues.append(Issue(
+                id=f"todo-{file_path}-{line_num}",
+                title="TODO/FIXME Comment",
+                description=f"TODO or FIXME comment found",
+                severity="low",
+                category="best_practices",
+                location=CodeLocation(file_path, line_num, line_num, 0, len(line)),
+                code_snippet=line.strip(),
+                suggestion="Address the TODO/FIXME",
+                rule_id="todo-comment",
+                confidence=0.95,
+            ))
+        
+        if re.search(r'\bprintf\s*\(', line) or re.search(r'\bscanf\s*\(', line):
+            issues.append(Issue(
+                id=f"format-string-{file_path}-{line_num}",
+                title="Format String Vulnerability",
+                description="Use of printf/scanf without format string",
+                severity="high",
+                category="security",
+                location=CodeLocation(file_path, line_num, line_num, 0, len(line)),
+                code_snippet=line.strip(),
+                suggestion="Use format string literals: printf(\"%s\", user_input)",
+                rule_id="format-string",
+                confidence=0.7,
+            ))
+        
+        if re.search(r'\bgets\s*\(', line):
+            issues.append(Issue(
+                id=f"gets-{file_path}-{line_num}",
+                title="Dangerous Function: gets()",
+                description="gets() is deprecated and vulnerable to buffer overflow",
+                severity="critical",
+                category="security",
+                location=CodeLocation(file_path, line_num, line_num, 0, len(line)),
+                code_snippet=line.strip(),
+                suggestion="Use fgets() instead",
+                rule_id="dangerous-gets",
+                confidence=0.95,
+            ))
+        
+        if re.search(r'\bstrcpy\s*\(', line) or re.search(r'\bstrcat\s*\(', line):
+            issues.append(Issue(
+                id=f"strcpy-{file_path}-{line_num}",
+                title="Unsafe String Function",
+                description="strcpy/strcat can cause buffer overflow",
+                severity="high",
+                category="security",
+                location=CodeLocation(file_path, line_num, line_num, 0, len(line)),
+                code_snippet=line.strip(),
+                suggestion="Use strncpy/strncat or snprintf instead",
+                rule_id="unsafe-strcpy",
+                confidence=0.8,
+            ))
+        
+        if re.search(r'\bsprintf\s*\(', line) or re.search(r'\bvsprintf\s*\(', line):
+            issues.append(Issue(
+                id=f"sprintf-{file_path}-{line_num}",
+                title="Unsafe sprintf",
+                description="sprintf can cause buffer overflow",
+                severity="high",
+                category="security",
+                location=CodeLocation(file_path, line_num, line_num, 0, len(line)),
+                code_snippet=line.strip(),
+                suggestion="Use snprintf instead",
+                rule_id="unsafe-sprintf",
+                confidence=0.8,
+            ))
+        
+        if re.search(r'\bmalloc\s*\(', line) and not re.search(r'\bfree\s*\(', "\n".join(all_lines[max(0, line_idx-5):line_idx+5])):
+            issues.append(Issue(
+                id=f"malloc-leak-{file_path}-{line_num}",
+                title="Potential Memory Leak",
+                description="malloc() without corresponding free()",
+                severity="medium",
+                category="bugs",
+                location=CodeLocation(file_path, line_num, line_num, 0, len(line)),
+                code_snippet=line.strip(),
+                suggestion="Ensure free() is called for every malloc()",
+                rule_id="memory-leak",
+                confidence=0.5,
+            ))
+        
+        if re.search(r'using\s+namespace\s+std\s*;', line):
+            issues.append(Issue(
+                id=f"namespace-std-{file_path}-{line_num}",
+                title="Using namespace std",
+                description="Using 'using namespace std;' can cause naming conflicts",
+                severity="low",
+                category="style",
+                location=CodeLocation(file_path, line_num, line_num, 0, len(line)),
+                code_snippet=line.strip(),
+                suggestion="Use std:: prefix or specific using declarations",
+                rule_id="using-namespace-std",
+                confidence=0.9,
+            ))
+        
+        if re.search(r'\bNULL\b', line):
+            issues.append(Issue(
+                id=f"null-{file_path}-{line_num}",
+                title="Use of NULL",
+                description="Prefer nullptr over NULL in C++11+",
+                severity="low",
+                category="style",
+                location=CodeLocation(file_path, line_num, line_num, 0, len(line)),
+                code_snippet=line.strip(),
+                suggestion="Use nullptr instead of NULL",
+                rule_id="use-nullptr",
+                confidence=0.8,
+            ))
+        
+        return issues
+
+
 def get_analyzer(language: LanguageType) -> BaseAnalyzer:
     if language == LanguageType.PYTHON:
         return PythonASTAnalyzer()
@@ -397,6 +532,8 @@ def get_analyzer(language: LanguageType) -> BaseAnalyzer:
         return JavaScriptAnalyzer()
     elif language == LanguageType.TYPESCRIPT:
         return TypeScriptAnalyzer()
+    elif language in (LanguageType.CPP, LanguageType.C):
+        return CppAnalyzer()
     raise ValueError(f"Unsupported language: {language}")
 
 
@@ -414,4 +551,8 @@ def detect_language(file_path: Path) -> Optional[LanguageType]:
         return LanguageType.JAVASCRIPT
     elif suffix in (".ts", ".tsx"):
         return LanguageType.TYPESCRIPT
+    elif suffix in (".cpp", ".cc", ".cxx", ".c++", ".c"):
+        return LanguageType.CPP
+    elif suffix in (".h", ".hpp", ".hxx"):
+        return LanguageType.CPP
     return None

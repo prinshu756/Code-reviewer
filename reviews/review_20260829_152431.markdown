@@ -1,0 +1,40 @@
+# Code Review Report
+**Generated:** 2026-08-29T15:24:31.515056
+**Files Reviewed:** 2
+**Total Issues:** 2
+
+## Summary by Severity
+- 🔴 **Critical:** 1
+- 🟠 **High:** 1
+
+## Summary by Category
+- **Security:** 1
+- **Syntax:** 1
+
+## Issues by File
+
+### test_cpp\test.cpp
+
+#### 🟠 Format String Vulnerability [HIGH]
+**Rule:** `format-string` | **Category:** security | **Confidence:** 70%
+**Location:** test_cpp\test.cpp:1:0
+**Description:** Use of printf/scanf without format string
+
+**Code:**
+```
+int main() { printf("hello"); return 0 }
+```
+
+**Suggestion:** Use format string literals: printf("%s", user_input)
+
+### test_cpp\test.py
+
+#### 🔴 Syntax Error [CRITICAL]
+**Rule:** `syntax-error` | **Category:** syntax | **Confidence:** 100%
+**Location:** test_cpp\test.py:1:11
+**Description:** expected ':' (<unknown>, line 1)
+
+**Code:**
+```
+def bad() print("hello")
+```

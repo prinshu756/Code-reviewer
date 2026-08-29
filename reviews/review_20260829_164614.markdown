@@ -1,0 +1,26 @@
+# Code Review Report
+**Generated:** 2026-08-29T16:46:14.730033
+**Files Reviewed:** 2
+**Total Issues:** 1
+
+## Summary by Severity
+- 🟠 **High:** 1
+
+## Summary by Category
+- **Security:** 1
+
+## Issues by File
+
+### test_cpp\test.cpp
+
+#### 🟠 Format String Vulnerability [HIGH]
+**Rule:** `format-string` | **Category:** security | **Confidence:** 70%
+**Location:** test_cpp\test.cpp:1:0
+**Description:** Use of printf/scanf without format string
+
+**Code:**
+```
+int main() { printf("hello"); return 0 }
+```
+
+**Suggestion:** Use format string literals: printf("%s", user_input)

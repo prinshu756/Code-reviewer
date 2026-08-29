@@ -1,0 +1,53 @@
+{
+  "summary": {
+    "total_files": 2,
+    "total_issues": 2,
+    "by_severity": {
+      "critical": 1,
+      "high": 1,
+      "medium": 0,
+      "low": 0
+    },
+    "by_category": {
+      "security": 1,
+      "syntax": 1
+    },
+    "by_file": {
+      "test_cpp\\test.cpp": 1,
+      "test_cpp\\test.py": 1
+    },
+    "timestamp": "2026-08-29T15:31:56.074397"
+  },
+  "files_reviewed": [
+    "test_cpp\\test.cpp",
+    "test_cpp\\test.py"
+  ],
+  "issues": [
+    {
+      "id": "format-string-test_cpp\\test.cpp-1",
+      "title": "Format String Vulnerability",
+      "description": "Use of printf/scanf without format string",
+      "severity": "high",
+      "category": "security",
+      "location": "test_cpp\\test.cpp:1:0",
+      "code_snippet": "int main() { printf(\"hello\"); return 0 }",
+      "suggestion": "Use format string literals: printf(\"%s\", user_input)",
+      "confidence": 0.7,
+      "rule_id": "format-string",
+      "metadata": {}
+    },
+    {
+      "id": "syntax-error-test_cpp\\test.py-1",
+      "title": "Syntax Error",
+      "description": "expected ':' (<unknown>, line 1)",
+      "severity": "critical",
+      "category": "syntax",
+      "location": "test_cpp\\test.py:1:11",
+      "code_snippet": "def bad() print(\"hello\")",
+      "suggestion": "",
+      "confidence": 1.0,
+      "rule_id": "syntax-error",
+      "metadata": {}
+    }
+  ]
+}

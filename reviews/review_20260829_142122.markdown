@@ -1,0 +1,24 @@
+# Code Review Report
+**Generated:** 2026-08-29T14:21:22.181188
+**Files Reviewed:** 1
+**Total Issues:** 1
+
+## Summary by Severity
+- 🔴 **Critical:** 1
+
+## Summary by Category
+- **Syntax:** 1
+
+## Issues by File
+
+### Random_errors\test.py
+
+#### 🔴 Syntax Error [CRITICAL]
+**Rule:** `syntax-error` | **Category:** syntax | **Confidence:** 100%
+**Location:** Random_errors\test.py:1:7
+**Description:** unterminated string literal (detected at line 1) (<unknown>, line 1)
+
+**Code:**
+```
+print("Hello World)
+```

@@ -28,6 +28,8 @@ analysis:
     - "python"
     - "javascript"
     - "typescript"
+    - "cpp"
+    - "c"
   
   severity_threshold: "medium"  # Options: low, medium, high, critical
   
@@ -52,6 +54,14 @@ analysis:
     - "**/*.ts"
     - "**/*.jsx"
     - "**/*.tsx"
+    - "**/*.cpp"
+    - "**/*.cc"
+    - "**/*.cxx"
+    - "**/*.c++"
+    - "**/*.c"
+    - "**/*.h"
+    - "**/*.hpp"
+    - "**/*.hxx"
   exclude_patterns:
     - "**/__pycache__/**"
     - "**/node_modules/**"
@@ -79,6 +89,7 @@ fixer:
     - "style"
     - "simple_bug"
     - "unused_import"
+    - "syntax"
 
 logging:
   level: "INFO"  # Options: DEBUG, INFO, WARNING, ERROR
