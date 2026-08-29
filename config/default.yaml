@@ -1,0 +1,111 @@
+# AI Code Reviewer Configuration
+# Copy this file to config.yaml and customize as needed
+
+ai:
+  # Provider: auto, local, cloud, mock
+  # auto: tries cloud first, falls back to local, then mock
+  provider: "auto"
+  
+  # Local LLM settings (Ollama)
+  local:
+    enabled: true
+    model: "codellama:7b"
+    base_url: "http://localhost:11434"
+    timeout: 120
+    temperature: 0.1
+    max_tokens: 4096
+  
+  # Cloud API settings
+  cloud:
+    enabled: true
+    provider: "openai"  # openai, anthropic, gemini
+    api_key: "${OPENAI_API_KEY}"
+    model: "gpt-4"
+    timeout: 60
+    temperature: 0.1
+    max_tokens: 4096
+    # Anthropic specific
+    anthropic_model: "claude-3-opus-20240229"
+    # Gemini specific
+    gemini_model: "gemini-pro"
+
+analysis:
+  # Languages to analyze
+  languages:
+    - "python"
+    - "javascript"
+    - "typescript"
+  
+  # Minimum severity to report: low, medium, high, critical
+  severity_threshold: "medium"
+  
+  # Enable/disable rule categories
+  rules:
+    security: true
+    complexity: true
+    style: true
+    bugs: true
+    performance: true
+    best_practices: true
+  
+  # Complexity thresholds
+  complexity:
+    max_cyclomatic: 10
+    max_cognitive: 15
+    max_nesting: 4
+    max_function_length: 50
+    max_class_length: 200
+  
+  # File patterns to include/exclude
+  include_patterns:
+    - "**/*.py"
+    - "**/*.js"
+    - "**/*.ts"
+    - "**/*.jsx"
+    - "**/*.tsx"
+  exclude_patterns:
+    - "**/__pycache__/**"
+    - "**/node_modules/**"
+    - "**/.git/**"
+    - "**/venv/**"
+    - "**/dist/**"
+    - "**/build/**"
+    - "**/*.min.js"
+    - "**/*.min.css"
+
+output:
+  # Output format: json, markdown, html
+  format: "markdown"
+  
+  # Output directory
+  path: "./reviews"
+  
+  # Include detailed information
+  include_suggestions: true
+  include_code_snippets: true
+  include_line_numbers: true
+  group_by: "file"  # file, severity, category
+
+fixer:
+  # Automatically apply fixes
+  auto_apply: false
+  
+  # Only apply safe fixes (high confidence)
+  safe_only: true
+  
+  # Minimum confidence to auto-apply (0.0 - 1.0)
+  confidence_threshold: 0.85
+  
+  # Create backup before fixing
+  create_backup: true
+  
+  # Fix categories to apply automatically
+  auto_fix_categories:
+    - "style"
+    - "simple_bug"
+    - "unused_import"
+
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "./logs/code-reviewer.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

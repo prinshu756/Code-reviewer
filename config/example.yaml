@@ -1,0 +1,86 @@
+# Example configuration with all options documented
+# Copy to config.yaml and modify as needed
+
+ai:
+  provider: "auto"  # Options: auto, local, cloud, mock
+  
+  local:
+    enabled: true
+    model: "codellama:7b"  # Other options: codellama:13b, codellama:34b, deepseek-coder:6.7b, etc.
+    base_url: "http://localhost:11434"
+    timeout: 120
+    temperature: 0.1
+    max_tokens: 4096
+  
+  cloud:
+    enabled: true
+    provider: "openai"  # Options: openai, anthropic, gemini
+    api_key: "${OPENAI_API_KEY}"  # Set via environment variable
+    model: "gpt-4"  # Options: gpt-4, gpt-4-turbo, gpt-3.5-turbo
+    timeout: 60
+    temperature: 0.1
+    max_tokens: 4096
+    anthropic_model: "claude-3-opus-20240229"  # Options: claude-3-opus, claude-3-sonnet, claude-3-haiku
+    gemini_model: "gemini-pro"  # Options: gemini-pro, gemini-pro-vision
+
+analysis:
+  languages:
+    - "python"
+    - "javascript"
+    - "typescript"
+  
+  severity_threshold: "medium"  # Options: low, medium, high, critical
+  
+  rules:
+    security: true
+    complexity: true
+    style: true
+    bugs: true
+    performance: true
+    best_practices: true
+  
+  complexity:
+    max_cyclomatic: 10
+    max_cognitive: 15
+    max_nesting: 4
+    max_function_length: 50
+    max_class_length: 200
+  
+  include_patterns:
+    - "**/*.py"
+    - "**/*.js"
+    - "**/*.ts"
+    - "**/*.jsx"
+    - "**/*.tsx"
+  exclude_patterns:
+    - "**/__pycache__/**"
+    - "**/node_modules/**"
+    - "**/.git/**"
+    - "**/venv/**"
+    - "**/dist/**"
+    - "**/build/**"
+    - "**/*.min.js"
+    - "**/*.min.css"
+
+output:
+  format: "markdown"  # Options: json, markdown, html
+  path: "./reviews"
+  include_suggestions: true
+  include_code_snippets: true
+  include_line_numbers: true
+  group_by: "file"  # Options: file, severity, category
+
+fixer:
+  auto_apply: false
+  safe_only: true
+  confidence_threshold: 0.85
+  create_backup: true
+  auto_fix_categories:
+    - "style"
+    - "simple_bug"
+    - "unused_import"
+
+logging:
+  level: "INFO"  # Options: DEBUG, INFO, WARNING, ERROR
+  file: "./logs/code-reviewer.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

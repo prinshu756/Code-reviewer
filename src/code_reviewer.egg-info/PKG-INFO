@@ -1,3 +1,46 @@
+Metadata-Version: 2.4
+Name: code-reviewer
+Version: 0.1.0
+Summary: AI-powered Code Reviewer & Bug Fixing Agent
+Author-email: Code Reviewer Team <team@codereviewer.dev>
+License: MIT
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: click>=8.1.0
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: rich>=13.0
+Requires-Dist: pydantic>=2.0
+Requires-Dist: tree-sitter>=0.20.0
+Requires-Dist: tree-sitter-python>=0.20.0
+Requires-Dist: tree-sitter-javascript>=0.20.0
+Requires-Dist: tree-sitter-typescript>=0.20.0
+Requires-Dist: httpx>=0.25.0
+Requires-Dist: tenacity>=8.2.0
+Requires-Dist: jinja2>=3.1.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.1.0; extra == "dev"
+Requires-Dist: pytest-mock>=3.11.0; extra == "dev"
+Requires-Dist: ruff>=0.1.0; extra == "dev"
+Requires-Dist: mypy>=1.5.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: isort>=5.12.0; extra == "dev"
+Requires-Dist: pre-commit>=3.4.0; extra == "dev"
+Provides-Extra: local-llm
+Requires-Dist: ollama>=0.1.0; extra == "local-llm"
+Provides-Extra: cloud
+Requires-Dist: openai>=1.0.0; extra == "cloud"
+Requires-Dist: anthropic>=0.7.0; extra == "cloud"
+Requires-Dist: google-generativeai>=0.3.0; extra == "cloud"
+
 # AI Code Reviewer & Bug Fixing Agent
 
 An intelligent code review tool that combines static analysis, pattern matching, and AI-powered review to detect bugs, security vulnerabilities, and code quality issues. Supports both local LLMs (via Ollama) and cloud APIs (OpenAI, Anthropic, Gemini).

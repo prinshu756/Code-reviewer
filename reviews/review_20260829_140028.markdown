@@ -1,0 +1,98 @@
+# Code Review Report
+**Generated:** 2026-08-29T14:00:28.677693
+**Files Reviewed:** 1
+**Total Issues:** 9
+
+## Summary by Severity
+- 🔴 **Critical:** 3
+- 🟠 **High:** 6
+
+## Summary by Category
+- **Bugs:** 4
+- **Security:** 5
+
+## Issues by File
+
+### C:\Users\Prinshu\AppData\Local\Temp\tmp44d8m08y.py
+
+#### 🟠 Mutable Default Argument [HIGH]
+**Rule:** `mutable-default-argument` | **Category:** bugs | **Confidence:** 95%
+**Location:** C:\Users\Prinshu\AppData\Local\Temp\tmp44d8m08y.py:2:0
+**Description:** Function 'bad_function' uses a mutable default argument
+
+**Code:**
+```
+def bad_function(items=[]):
+```
+
+**Suggestion:** Use None as default and create mutable object inside function
+
+#### 🟠 Mutable Default Argument [HIGH]
+**Rule:** `mutable-default` | **Category:** bugs | **Confidence:** 90%
+**Location:** C:\Users\Prinshu\AppData\Local\Temp\tmp44d8m08y.py:2:0
+**Description:** Mutable default argument in function definition
+
+**Code:**
+```
+def bad_function(items=[]):
+```
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** C:\Users\Prinshu\AppData\Local\Temp\tmp44d8m08y.py:2:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
+
+#### 🔴 Dangerous Function Call [CRITICAL]
+**Rule:** `dangerous-eval-exec` | **Category:** security | **Confidence:** 95%
+**Location:** C:\Users\Prinshu\AppData\Local\Temp\tmp44d8m08y.py:3:4
+**Description:** Use of 'eval' can execute arbitrary code
+
+**Code:**
+```
+    eval("print('hello')")
+```
+
+**Suggestion:** Avoid using eval; use safer alternatives
+
+#### 🔴 Eval Usage [CRITICAL]
+**Rule:** `eval-usage` | **Category:** security | **Confidence:** 95%
+**Location:** C:\Users\Prinshu\AppData\Local\Temp\tmp44d8m08y.py:3:4
+**Description:** Use of eval() function
+
+**Code:**
+```
+eval("print('hello')")
+```
+
+#### 🔴 Use of eval() [CRITICAL]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 95%
+**Location:** C:\Users\Prinshu\AppData\Local\Temp\tmp44d8m08y.py:3:0
+**Description:** Found pattern matching: eval\s*\(
+
+**Suggestion:** Review and fix: Use of eval()
+
+#### 🟠 Hardcoded Password [HIGH]
+**Rule:** `hardcoded-password` | **Category:** security | **Confidence:** 70%
+**Location:** C:\Users\Prinshu\AppData\Local\Temp\tmp44d8m08y.py:4:4
+**Description:** Possible hardcoded password or secret
+
+**Code:**
+```
+password = "secret123"
+```
+
+#### 🟠 Possible hardcoded password [HIGH]
+**Rule:** `ai-security` | **Category:** security | **Confidence:** 70%
+**Location:** C:\Users\Prinshu\AppData\Local\Temp\tmp44d8m08y.py:4:0
+**Description:** Found pattern matching: password\s*=
+
+**Suggestion:** Review and fix: Possible hardcoded password
+
+#### 🟠 Mutable default argument (list) [HIGH]
+**Rule:** `ai-bugs` | **Category:** bugs | **Confidence:** 80%
+**Location:** C:\Users\Prinshu\AppData\Local\Temp\tmp44d8m08y.py:9:0
+**Description:** Found pattern matching: =\s*\[\s*\]
+
+**Suggestion:** Review and fix: Mutable default argument (list)
